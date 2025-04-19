@@ -39,7 +39,7 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
         <div className="grid grid-cols-4 gap-4 h-[500px]">
           <div className="col-span-2 row-span-2 relative rounded-lg overflow-hidden">
             <Image
-              src="/images/hotels/danang-1.jpg"
+              src="/images/Home/Place/PHUQUOC.jpg"
               alt="Hotel main"
               fill
               className="object-cover"
@@ -47,7 +47,7 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           </div>
           <div className="relative rounded-lg overflow-hidden">
             <Image
-              src="/images/hotels/danang-2.jpg"
+              src="/images/Home/Place/PHUQUOC.jpg"
               alt="Hotel view"
               fill
               className="object-cover"
@@ -55,7 +55,7 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           </div>
           <div className="relative rounded-lg overflow-hidden">
             <Image
-              src="/images/hotels/danang-3.jpg"
+              src="/images/Home/Place/PHUQUOC.jpg"
               alt="Hotel room"
               fill
               className="object-cover"
@@ -63,7 +63,7 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           </div>
           <div className="relative rounded-lg overflow-hidden">
             <Image
-              src="/images/hotels/danang-4.jpg"
+              src="/images/Home/Place/PHUQUOC.jpg"
               alt="Hotel pool"
               fill
               className="object-cover"
@@ -71,7 +71,7 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           </div>
           <div className="relative rounded-lg overflow-hidden">
             <Image
-              src="/images/hotels/danang-5.jpg"
+              src="/images/Home/Place/PHUQUOC.jpg"
               alt="Hotel spa"
               fill
               className="object-cover"
@@ -188,7 +188,7 @@ const rooms = [
     capacity: 'Twin/Queen',
     view: 'City view',
     price: '1,600,000đ',
-    image: '/images/rooms/superior.jpg',
+    image: '/images/Home/Place/PHUQUOC.jpg',
   },
   {
     id: 2,
@@ -197,7 +197,7 @@ const rooms = [
     capacity: 'Twin/Queen',
     view: 'City View',
     price: '2,050,000đ',
-    image: '/images/rooms/deluxe.jpg',
+    image: '/images/Home/Place/PHUQUOC.jpg',
   },
   {
     id: 3,
@@ -206,7 +206,7 @@ const rooms = [
     capacity: 'Twin/Queen',
     view: 'Ocean View',
     price: '2,700,000đ',
-    image: '/images/rooms/premier.jpg',
+    image: '/images/Home/Place/PHUQUOC.jpg',
   },
   // Thêm các loại phòng khác
 ]; 

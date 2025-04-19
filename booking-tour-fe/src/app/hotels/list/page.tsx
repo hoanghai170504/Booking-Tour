@@ -370,9 +370,9 @@ const hotels = [
     stars: 5,
     price: '1,550,000đ',
     oldPrice: '1,850,000đ',
-    image: '/images/hotels/halong-1.jpg',
+    image: '/images/Home/Place/HALONG.jpg',
     amenities: ['Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
-    rooms: 326
+    rooms: 326    
   },
   {
     id: 2,
@@ -381,7 +381,7 @@ const hotels = [
     stars: 5,
     price: '1,600,000đ',
     oldPrice: '2,000,000đ',
-    image: '/images/hotels/halong-2.jpg',
+    image: '/images/Home/Place/HALONG.jpg',
     amenities: ['Wifi miễn phí', 'Lễ tân 24h', 'Bể bơi ngoài trời', 'Nhà hàng'],
     rooms: 580
   },
@@ -392,7 +392,7 @@ const hotels = [
     stars: 5,
     price: '1,700,000đ',
     oldPrice: '2,200,000đ',
-    image: '/images/hotels/halong-3.jpg',
+    image: '/images/Home/Place/HALONG.jpg',
     amenities: ['Bể bơi ngoài trời', 'Wifi miễn phí', 'Lễ tân 24h', 'Nhà hàng'],
     rooms: 354
   }

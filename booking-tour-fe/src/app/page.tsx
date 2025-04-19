@@ -5,30 +5,79 @@ import heroBackground from '/public/images/Home/herobackground.jpg';
 export default function Home() {
   return (
     <div className="flex flex-col gap-12">
-      {/* Hero Section */}
-      <section className="relative h-[600px] overflow-hidden">
+      {/* Hero Section - Enhanced */}
+      <section className="relative h-[700px] overflow-hidden">
         <Image
           src={heroBackground}
           alt="Hero background"
           fill
-          className="object-cover"
-          priority
+          className="object-cover transform scale-105 animate-slow-zoom"
         />
-        <div className="absolute inset-0 bg-teal-100/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-500/40 to-blue-500/40" />
         <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="bg-white/80 p-8 rounded-3xl shadow-lg border-4 border-teal-300 max-w-2xl animate-bounce-slow">
-            <h1 className="text-5xl font-bold mb-4 text-teal-500 font-comic">
-              Khám phá thế giới cùng Vivu Xanh
-            </h1>
-            <p className="text-xl mb-8 text-teal-600">
-              Trải nghiệm những chuyến đi tuyệt vời với dịch vụ đặt tour chất lượng cao
+          <div className="bg-white/90 p-10 rounded-[2rem] shadow-2xl border-4 border-teal-300 max-w-2xl transform hover:scale-105 transition-all duration-500">
+            <div className="animate-float">
+              <h1 className="text-6xl font-bold mb-6 text-teal-500 font-comic leading-tight">
+                Vivu Xanh 
+                <span className="block text-3xl text-teal-400 mt-2">Hành trình xanh - Kỷ niệm xanh</span>
+              </h1>
+            </div>
+            <p className="text-xl mb-8 text-teal-700 leading-relaxed">
+              Khám phá Việt Nam tuyệt vời cùng những người bạn thân thiện và dịch vụ tận tâm 
             </p>
-            <Link
-              href="/tours"
-              className="bg-teal-400 text-white px-8 py-3 rounded-full text-lg hover:bg-teal-500 transition-colors duration-200 shadow-md hover:scale-105 transform transition-transform inline-flex items-center"
-            >
-              Khám phá ngay
-            </Link>
+            <div className="flex gap-4">
+              <Link
+                href="/tours"
+                className="bg-teal-400 text-white px-8 py-4 rounded-full text-lg hover:bg-teal-500 transition-all duration-300 shadow-lg hover:shadow-teal-300/50 transform hover:-translate-y-1 inline-flex items-center"
+              >
+                <span>Khám phá ngay</span>
+                <span className="ml-2"></span>
+              </Link>
+              <Link
+                href="/about"
+                className="bg-white text-teal-500 px-8 py-4 rounded-full text-lg border-2 border-teal-400 hover:bg-teal-50 transition-all duration-300 inline-flex items-center"
+              >
+                <span>Tìm hiểu thêm</span>
+                <span className="ml-2"></span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Welcome Section - New */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="relative">
+            <div className="w-96 h-96 bg-teal-100 rounded-full absolute -top-10 -left-10 animate-pulse-slow"></div>
+            <Image
+              src="/images/mascot.png"
+              alt="Vivu Xanh Mascot"
+              width={500}
+              height={500}
+              className="relative z-10 transform hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div>
+            <h2 className="text-4xl font-bold text-teal-600 mb-6">
+              Chào mừng đến với Vivu Xanh
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Chúng tôi không chỉ đơn thuần là một công ty du lịch - chúng tôi là những người bạn đồng hành, 
+              mang đến cho bạn những trải nghiệm du lịch độc đáo và thân thiện với môi trường.
+            </p>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-teal-50 p-6 rounded-2xl">
+                <div className="text-3xl mb-2">🎯</div>
+                <h3 className="text-xl font-bold text-teal-600 mb-2">Sứ mệnh</h3>
+                <p className="text-gray-600">Mang đến trải nghiệm du lịch xanh, bền vững</p>
+              </div>
+              <div className="bg-teal-50 p-6 rounded-2xl">
+                <div className="text-3xl mb-2">💚</div>
+                <h3 className="text-xl font-bold text-teal-600 mb-2">Giá trị</h3>
+                <p className="text-gray-600">Tận tâm, chất lượng và thân thiện</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -215,29 +264,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Đăng ký nhận tin */}
-      {/* <section className="container mx-auto px-6 py-10">
-        <div className="bg-teal-400 rounded-lg p-10 shadow-md">
-          <div className="text-center md:flex md:justify-between md:items-center">
-            <div className="mb-4 md:mb-0 md:text-left">
-              <h2 className="text-xl font-bold text-white mb-2">Đăng ký nhận thông tin ưu đãi</h2>
-              <p className="text-white text-sm">Nhận thông tin về các chương trình khuyến mãi và tour mới nhất.</p>
-            </div>
-            <div className="md:w-1/3">
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Email của bạn" 
-                  className="flex-grow p-2 rounded-l-md border-0" 
-                />
-                <button className="bg-white text-teal-500 px-4 py-2 rounded-r-md">
-                  Đăng ký
-                </button>
-              </div>
-            </div>
+      {/* Enhanced CTA Section */}
+      <section className="bg-gradient-to-r from-teal-400 to-blue-500 py-20">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold text-white mb-8">
+            Sẵn sàng cho chuyến đi tiếp theo? 🌟
+          </h2>
+          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+            Đăng ký ngay hôm nay để nhận được những ưu đãi đặc biệt và thông tin về các tour mới nhất!
+          </p>
+          <div className="flex justify-center gap-6">
+            <Link
+              href="/tours"
+              className="bg-white text-teal-500 px-8 py-4 rounded-full text-lg hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              Đặt tour ngay 🎉
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-transparent text-white px-8 py-4 rounded-full text-lg border-2 border-white hover:bg-white/10 transition-all duration-300"
+            >
+              Liên hệ tư vấn 💌
+            </Link>
           </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 }
