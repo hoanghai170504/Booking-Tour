@@ -1,6 +1,10 @@
-import Joi from 'joi';
-import { badRequest, internalServerError, ok } from '../../middlewares/handle_error.js';
-import * as services from '../../services/auth/index.js';
+import Joi from "joi";
+import {
+    badRequest,
+    internalServerError,
+    ok,
+} from "../../middlewares/handle_error.js";
+import * as services from "../../services/index.js";
 
 export const loginController = async (req, res) => {
     try {
@@ -38,4 +42,4 @@ export const registerController = async (req, res) => {
     } catch (error) {
         internalServerError(res, error);
     }
-}
+};
