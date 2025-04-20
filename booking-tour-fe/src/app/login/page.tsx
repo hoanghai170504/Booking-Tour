@@ -2,8 +2,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { loginAsync, registerAsync } from '@/redux/features/authSlice';
+import { useRouter } from 'next/navigation';
+import { RootState } from "@/redux/store";
 
 export default function Auth() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { loading, error } = useAppSelector((state: RootState) => state.auth);
   const [isLogin, setIsLogin] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   
@@ -14,6 +21,12 @@ export default function Auth() {
     "/images/Login/login3.jpg"  // Thay bằng ảnh thứ 3 thực tế
   ];
   
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: ''
+  });
+
   useEffect(() => {
     // Thiết lập interval để chuyển slide tự động
     const interval = setInterval(() => {
@@ -22,6 +35,39 @@ export default function Auth() {
     
     return () => clearInterval(interval);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (isLogin) {
+      const result = await dispatch(loginAsync({
+        email: formData.email,
+        password: formData.password
+      }));
+      
+      if (loginAsync.fulfilled.match(result)) {
+        // Đăng nhập thành công
+        router.push('/'); // hoặc trang chính sau đăng nhập
+      }
+    } else {
+      const result = await dispatch(registerAsync({
+        email: formData.email,
+        password: formData.password
+      }));
+      
+      if (registerAsync.fulfilled.match(result)) {
+        // Đăng ký thành công
+        router.push('/');
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-teal-50 to-blue-50">
@@ -95,11 +141,14 @@ export default function Auth() {
 
         {/* Form Container */}
         <div className="flex-1 p-8 flex flex-col justify-center">
+          <Link href="/">
+            <Image src="/images/logovivu-removebg.png" alt="Logo" width={100} height={100} className="mx-auto mb-8" />
+          </Link>
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 animate-fadeIn">
             {isLogin ? "Chào mừng trở lại👋" : "Tạo tài khoản mới ✨"}
           </h2>
 
-          <form className="space-y-6 max-w-md mx-auto w-full">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto w-full">
             {!isLogin && (
               <div className="space-y-2 animate-slideUp">
                 <label className="text-sm font-medium text-gray-700">
@@ -107,6 +156,9 @@ export default function Auth() {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all duration-300"
                   placeholder="Nhập họ và tên của bạn"
                 />
@@ -117,6 +169,9 @@ export default function Auth() {
               <label className="text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all duration-300"
                 placeholder="example@email.com"
               />
@@ -128,6 +183,9 @@ export default function Auth() {
               </label>
               <input
                 type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all duration-300"
                 placeholder="••••••••"
               />
@@ -166,11 +224,16 @@ export default function Auth() {
               </div>
             )}
 
+            {error && (
+              <div className="text-red-500 text-sm">{error}</div>
+            )}
+
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-teal-400 text-white py-3 rounded-lg text-lg font-semibold hover:bg-teal-500 transform hover:scale-[1.03] transition-all duration-500 shadow-lg hover:shadow-xl animate-pulse-slow"
             >
-              {isLogin ? "Đăng Nhập" : "Đăng Ký"}
+              {loading ? 'Đang xử lý...' : (isLogin ? 'Đăng Nhập' : 'Đăng Ký')}
             </button>
           </form>
 

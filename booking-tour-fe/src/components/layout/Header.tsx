@@ -4,12 +4,33 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '/public/images/logovivu-removebg.png';
 import { useState } from 'react';
+import { useAppSelector } from '@/redux/hook';
+import { logoutAsync } from '@/redux/features/authSlice';
+import { useAppDispatch } from '@/redux/hook';
+import { RootState } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isAuthenticated = useAppSelector((state: RootState) => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const result = await dispatch(logoutAsync());
+      if (logoutAsync.fulfilled.match(result)) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        router.push('/login');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   return (
@@ -66,12 +87,20 @@ export default function Header() {
           </div>
 
           <div className="hidden md:flex space-x-4">  
-            <Link href="/login" className="px-5 py-2.5 text-teal-400 border border-teal-400 font-medium rounded-md hover:bg-teal-50 transition-colors duration-200">
-              Đăng nhập
-            </Link>
-            <Link href="/register" className="px-5 py-2.5 bg-teal-400 text-white font-medium rounded-md hover:bg-teal-500 transition-colors duration-200 shadow-sm">
-              Đăng ký
-            </Link>
+            {isAuthenticated ? (
+              <button onClick={handleLogout} className="px-5 py-2.5 text-teal-400 border border-teal-400 font-medium rounded-md hover:bg-teal-50 transition-colors duration-200">
+                Đăng xuất
+              </button>
+            ) : (
+              <>
+                <Link href="/login" className="px-5 py-2.5 text-teal-400 border border-teal-400 font-medium rounded-md hover:bg-teal-50 transition-colors duration-200">
+                  Đăng nhập
+                </Link>
+                <Link href="/register" className="px-5 py-2.5 bg-teal-400 text-white font-medium rounded-md hover:bg-teal-500 transition-colors duration-200 shadow-sm">
+                  Đăng ký
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';  
+import { getHotelById } from '@/services/apiHotels';
 
 // Định nghĩa các interface
 interface Hotel {
@@ -36,9 +37,9 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const response = await fetch(`/api/hotels/${params.id}`);
-        const data = await response.json();
-        setHotel(data);
+        const response = await getHotelById(params.id);
+        setHotel(response.data);
+        setRooms(response.data.rooms);
         setLoading(false);
       } catch (err) {
         setError(err as string);
@@ -169,9 +170,11 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
               <div className="text-right">
                 <p className="text-2xl font-bold text-teal-600">{room.price}</p>
                 <p className="text-sm text-gray-500">/đêm</p>
-                <button className="mt-2 bg-teal-400 text-white px-6 py-2 rounded-full hover:bg-teal-500 transition-colors">
-                  Đặt ngay
-                </button>
+                <Link href={`/hotels/${params.id}/booking`}>
+                  <button className="mt-2 bg-teal-400 text-white px-6 py-2 rounded-full hover:bg-teal-500 transition-colors">
+                    Đặt ngay
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
