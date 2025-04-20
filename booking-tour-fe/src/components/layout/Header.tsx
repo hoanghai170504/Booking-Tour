@@ -53,18 +53,19 @@ export default function Header() {
               </button>
               <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
                 <Link href="/tours" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Tất cả Tours</Link>
-                <Link href="/tours?location=dalat" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Đà Lạt</Link>
-                <Link href="/tours?location=phuquoc" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Phú Quốc</Link>
-                <Link href="/tours?location=halong" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Hạ Long</Link>
-                <Link href="/tours?location=sapa" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Sapa</Link>
+                <Link href="/tours/dalat" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Đà Lạt</Link>
+                <Link href="/tours/phuquoc" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Phú Quốc</Link>
+                <Link href="/tours/halong" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Hạ Long</Link>
+                <Link href="/tours/sapa" className="block px-4 py-2 text-sm text-gray-700 hover:text-teal-400 hover:bg-teal-50 transition-colors duration-200">Sapa</Link>
               </div>
             </div>
             <Link href="/hotels" className="font-medium text-gray-700 hover:text-teal-400 transition-colors duration-200">Tìm khách sạn</Link>
             <Link href="/about" className="font-medium text-gray-700 hover:text-teal-400 transition-colors duration-200">Giới thiệu</Link>
+            <Link href="/blogs" className="font-medium text-gray-700 hover:text-teal-400 transition-colors duration-200">Blogs</Link>
             <Link href="/contact" className="font-medium text-gray-700 hover:text-teal-400 transition-colors duration-200">Liên hệ</Link>
           </div>
 
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex space-x-4">  
             <Link href="/login" className="px-5 py-2.5 text-teal-400 border border-teal-400 font-medium rounded-md hover:bg-teal-50 transition-colors duration-200">
               Đăng nhập
             </Link>
@@ -94,10 +95,10 @@ export default function Header() {
               </button>
               <div id="mobile-tours-submenu" className="hidden pl-4 mt-2 border-l-2 border-teal-100">
                 <Link href="/tours" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Tất cả Tours</Link>
-                <Link href="/tours?location=dalat" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Đà Lạt</Link>
-                <Link href="/tours?location=phuquoc" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Phú Quốc</Link>
-                <Link href="/tours?location=halong" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Hạ Long</Link>
-                <Link href="/tours?location=sapa" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Sapa</Link>
+                <Link href="/tours/dalat" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Đà Lạt</Link>
+                <Link href="/tours/phuquoc" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Phú Quốc</Link>
+                <Link href="/tours/halong" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Hạ Long</Link>
+                <Link href="/tours/sapa" className="block py-2 text-sm text-gray-700 hover:text-teal-400 transition-colors duration-200">Sapa</Link>
               </div>
             </div>
             <Link href="/hotels" className="font-medium text-gray-700 hover:text-teal-400 transition-colors duration-200 py-2">Tìm khách sạn</Link>

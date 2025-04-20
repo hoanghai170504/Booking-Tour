@@ -50,13 +50,15 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <div className="w-96 h-96 bg-teal-100 rounded-full absolute -top-10 -left-10 animate-pulse-slow"></div>
-            <Image
-              src="/images/mascot.png"
-              alt="Vivu Xanh Mascot"
-              width={500}
-              height={500}
-              className="relative z-10 transform hover:scale-105 transition-transform duration-300"
-            />
+            <div className="relative z-10 w-[400px] h-[400px] rounded-full overflow-hidden">
+              <Image
+                src="/images/Home/herobackground.jpg"
+                alt="Vivu Xanh Mascot"
+                width={400}
+                height={400}
+                className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           </div>
           <div>
             <h2 className="text-4xl font-bold text-teal-600 mb-6">

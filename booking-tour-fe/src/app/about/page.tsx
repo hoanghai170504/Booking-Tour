@@ -242,6 +242,19 @@ const teamMembers = [
     quote: "Mỗi chuyến đi là một câu chuyện mới",
     image: "/images/About/CEO.jpg"
   },
+  {
+    name: "Huỳnh Hữu Toàn",
+    position: "Phó giám đốcc",
+    quote: "Uy tín là chìa khóa để thành công",
+    image: "/images/About/CEO.jpg"
+  },
+  {
+    name: "Lê Hoàng Trọng",
+    position: "Trưởng phòng Marketing",
+    quote: "Khách hàng là trung tâm của tất cả",
+    image: "/images/About/Marketing.jpg"
+  },
+
   // Thêm các thành viên khác
 ];
 
