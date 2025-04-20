@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/login', controller.loginController
     /* 
-    #swagger.tags = ['User']
+    #swagger.tags = ['Auth']
     #swagger.requestBody = {
         required: true,
         content: {
@@ -34,7 +34,7 @@ router.post('/login', controller.loginController
 
 router.post('/register', controller.registerController
     /* 
-    #swagger.tags = ['User']
+    #swagger.tags = ['Auth']
     #swagger.requestBody = {
         required: true,
         content: {
