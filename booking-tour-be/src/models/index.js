@@ -16,6 +16,8 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+sequelize.sync({ alter: true }); // hoặc { force: true } nếu muốn xóa và tạo lại bảng (cẩn thận với dữ liệu cũ)
+
 fs
   .readdirSync(__dirname)
   .filter(file => {

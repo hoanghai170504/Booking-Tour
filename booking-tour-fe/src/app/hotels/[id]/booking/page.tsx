@@ -184,9 +184,9 @@ export default function BookingPage({ params }: { params: { id: string } }) {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
               <h2 className="text-xl font-bold text-gray-800 mb-4">Chi tiết đặt phòng</h2>
               
-              <div className="space-y-4 flex-col">
-                <div className="flex-row items-center gap-3 p-3">
-                  <div className="relative w-100 h-50 rounded-md overflow-hidden">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="relative w-24 h-24 rounded-md overflow-hidden flex-shrink-0">
                     <Image
                       src="/images/Home/Place/HALONG.jpg"
                       alt="Room preview"
@@ -195,50 +195,72 @@ export default function BookingPage({ params }: { params: { id: string } }) {
                     />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800">Phòng Deluxe</h3>
+                    <h3 className="font-semibold text-gray-800 text-lg">Phòng Deluxe</h3>
                     <p className="text-sm text-gray-600">2 giường đơn</p>
+                    <p className="text-sm text-gray-600 mt-1">Bao gồm bữa sáng</p>
                   </div>
                 </div>
 
-                <div className="border-t pt-3">
-                  <div className="flex justify-between mb-1">
-                    <span className="text-gray-600">Giá phòng/đêm</span>
-                    <span className="font-semibold">1,200,000₫</span>
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Ngày nhận phòng</span>
+                    <span className="font-medium">{formData.checkIn || 'Chưa chọn'}</span>
                   </div>
-                  <div className="flex justify-between mb-1">
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Ngày trả phòng</span>
+                    <span className="font-medium">{formData.checkOut || 'Chưa chọn'}</span>
+                  </div>
+                  <div className="flex justify-between py-2">
                     <span className="text-gray-600">Số đêm</span>
-                    <span className="font-semibold">
+                    <span className="font-medium">
                       {formData.checkIn && formData.checkOut
                         ? Math.ceil((new Date(formData.checkOut).getTime() - new Date(formData.checkIn).getTime()) / (1000 * 3600 * 24))
                         : 0} đêm
                     </span>
                   </div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-gray-600">Tên khách hàng</span>
-                    <span className="font-semibold">{formData.name || 'Chưa nhập'}</span>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Số người lớn</span>
+                    <span className="font-medium">{formData.adults} người</span>
                   </div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-gray-600">Email</span>
-                    <span className="font-semibold">{formData.email || 'Chưa nhập'}</span>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Số trẻ em</span>
+                    <span className="font-medium">{formData.children} người</span>
                   </div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-gray-600">Thuế và phí</span>
-                    <span className="font-semibold">240,000₫</span>
-                  </div>
-                  <div className="border-t pt-2 mt-2">
-                    <div className="flex justify-between">
-                      <span className="font-bold">Tổng cộng</span>
-                      <span className="font-bold text-teal-600">
-                        {formData.checkIn && formData.checkOut
-                          ? (1200000 * Math.ceil((new Date(formData.checkOut).getTime() - new Date(formData.checkIn).getTime()) / (1000 * 3600 * 24)) + 240000).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'})
-                          : '0₫'}
-                      </span>
-                    </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Số phòng</span>
+                    <span className="font-medium">{formData.rooms} phòng</span>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-3 rounded-md">
-                  <h4 className="font-semibold text-gray-800 mb-1">Chính sách hủy phòng</h4>
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Giá phòng/đêm</span>
+                    <span className="font-medium">1.200.000₫</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-600">Thuế và phí</span>
+                    <span className="font-medium">240.000₫</span>
+                  </div>
+                  <div className="border-t border-gray-200 pt-3 mt-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-lg">Tổng cộng</span>
+                      <span className="font-bold text-xl text-teal-600">
+                        {formData.checkIn && formData.checkOut
+                          ? (1200000 * Math.ceil((new Date(formData.checkOut).getTime() - new Date(formData.checkIn).getTime()) / (1000 * 3600 * 24)) * formData.rooms + 240000).toLocaleString('vi-VN') + '₫'
+                          : '0₫'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1 text-right">Đã bao gồm thuế và phí</p>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Chính sách hủy phòng
+                  </h4>
                   <p className="text-sm text-gray-600">
                     Miễn phí hủy phòng trước 3 ngày check-in. Sau thời gian này, 
                     khách sạn sẽ thu phí một đêm đầu tiên.

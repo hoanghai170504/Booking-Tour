@@ -6,8 +6,12 @@ function initWebRoutes(app) {
         // #swagger.tags = ['Auth']
     );
 
+    app.use('/api/v1/blogs', require('./blogs.route.js')
+        // #swagger.tags = ['Blogs']
+    );
+
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(require('../../config/swagger-output.json')));
-    // Import Swagger UI
+    
     app.use(notFound);
 }
 

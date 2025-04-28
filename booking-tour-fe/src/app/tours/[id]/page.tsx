@@ -34,12 +34,12 @@ const tours: Tour[] = [
     rating: 4.8,
     reviews: 156,
     description: 'Khám phá thành phố ngàn hoa với những điểm đến nổi tiếng. Tour bao gồm tham quan các địa điểm nổi tiếng như Hồ Xuân Hương, Nhà thờ Con Gà, Chợ Đà Lạt, và nhiều điểm đến hấp dẫn khác.\n\nĐà Lạt - thành phố của những câu chuyện cổ tích, nơi bạn có thể tận hưởng không khí trong lành, ngắm nhìn những vườn hoa rực rỡ và khám phá những địa điểm du lịch nổi tiếng. Tour 3 ngày 2 đêm sẽ mang đến cho bạn trải nghiệm trọn vẹn về vẻ đẹp và văn hóa của thành phố ngàn hoa.',
-    image: '/images/tour-dalat.jpg',
+    image: '/images/Home/Place/DALAT.jpg',
     gallery: [
-      '/images/dalat-1.jpg',
-      '/images/dalat-2.jpg',
-      '/images/dalat-3.jpg',
-      '/images/dalat-4.jpg',
+      '/images/Home/Place/DALAT.jpg',
+      '/images/Home/Place/DALAT.jpg',
+      '/images/Home/Place/DALAT.jpg',
+      '/images/Home/Place/DALAT.jpg',
     ],
     highlights: [
       'Tham quan Hồ Xuân Hương - trái tim của Đà Lạt',
@@ -110,38 +110,40 @@ export default function TourDetailPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <div className="text-center text-white max-w-3xl px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{tour.name}</h1>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="flex items-center">
-                <svg className="w-5 h-5 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 flex items-center justify-center">
+          <div className="text-center text-white max-w-4xl px-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">{tour.name}</h1>
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <span className="flex items-center bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-black/50">
+                <svg className="w-5 h-5 mr-2 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
-                {tour.rating} ({tour.reviews} đánh giá)
+                <span className="font-semibold">{tour.rating}</span>
+                <span className="mx-1 text-gray-300">•</span>
+                <span>{tour.reviews} đánh giá</span>
               </span>
-              <span className="flex items-center">
-                <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="flex items-center bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-black/50">
+                <svg className="w-5 h-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                {tour.location}
+                <span className="font-semibold">{tour.location}</span>
               </span>
-              <span className="flex items-center">
-                <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="flex items-center bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-black/50">
+                <svg className="w-5 h-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {tour.duration}
+                <span className="font-semibold">{tour.duration}</span>
               </span>
             </div>
-            <div className="flex justify-center gap-4">
-              <div className="bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <p className="text-sm text-gray-300">Giá từ</p>
-                <p className="text-2xl font-bold">{tour.price}</p>
-                <p className="text-sm text-gray-300">/người</p>
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <div className="bg-black/50 backdrop-blur-sm px-8 py-4 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105">
+                <p className="text-sm font-medium text-gray-300 mb-1">Giá từ</p>
+                <p className="text-3xl font-bold text-white">{tour.price}</p>
+                <p className="text-sm font-medium text-gray-300">/người</p>
               </div>
-              <Link href={`/tours/${tour.id}/booking`}>
-                <button className="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 transition-colors flex items-center">
+              <Link href={`/tours/${tour.id}/booking`} className="self-center">
+                <button className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center font-semibold">
                   <span>Đặt ngay</span>
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -153,24 +155,27 @@ export default function TourDetailPage() {
         </div>
         
         {/* Image Thumbnails */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 px-4 overflow-x-auto">
-          {tour.gallery.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveImageIndex(index)}
-              className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                activeImageIndex === index ? 'border-teal-500 scale-110' : 'border-transparent'
-              }`}
-            >
-              <Image
-                src={image}
-                alt={`Thumbnail ${index + 1}`}
-                width={64}
-                height={64}
-                className="object-cover w-full h-full"
-              />
-            </button>
-          ))}
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 px-4 overflow-x-auto pb-2">
+          <div className="flex gap-3 bg-black/30 backdrop-blur-md p-2 rounded-xl">
+            {tour.gallery.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveImageIndex(index)}
+                className={`w-20 h-14 rounded-lg overflow-hidden border-2 transition-all duration-300 shadow-md hover:scale-105 ${
+                  activeImageIndex === index ? 'border-teal-500 scale-110' : 'border-white/50 opacity-80'
+                }`}
+                aria-label={`Xem ảnh ${index + 1}`}
+              >
+                <Image
+                  src={image}
+                  alt={`Thumbnail ${index + 1}`}
+                  width={80}
+                  height={56}
+                  className="object-cover w-full h-full"
+                />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -191,7 +196,7 @@ export default function TourDetailPage() {
       <div className="container mx-auto px-6 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column */}
-          <div className="lg:w-2/3">
+          <div className="w-full">
             {/* Tabs */}
             <div className="border-b border-gray-200 mb-6">
               <div className="flex space-x-8">
@@ -308,84 +313,20 @@ export default function TourDetailPage() {
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Right Column - Booking Widget */}
-          <div className="lg:w-1/3">
-            <div className="bg-white rounded-xl shadow-md p-6 sticky top-6">
-              <h2 className="text-xl font-bold mb-4">Đặt tour</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Ngày khởi hành
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Số lượng người
-                  </label>
-                  <select className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                      <option key={num} value={num}>
-                        {num} người
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Họ và tên
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Số điện thoại
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-600">Giá tour</span>
-                    <span className="font-medium">{tour.price}</span>
-                  </div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-600">Phí dịch vụ</span>
-                    <span className="font-medium">0đ</span>
-                  </div>
-                  <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
-                    <span>Tổng cộng</span>
-                    <span className="text-teal-600">{tour.price}</span>
-                  </div>
-                </div>
-                <Link href={`/tours/${tour.id}/booking`}>
-                  <button className="w-full bg-teal-500 text-white py-3 rounded-lg hover:bg-teal-600 transition-colors font-medium">
-                    Đặt tour ngay
-                  </button>
-                </Link>
-                <p className="text-xs text-center text-gray-500 mt-2">
-                  Giá đã bao gồm thuế và phí dịch vụ
-                </p>
-              </form>
+            
+            {/* Booking Button */}
+            <div className="mt-8 text-center">
+              <Link href={`/tours/${tour.id}/booking`}>
+                <button className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center font-semibold mx-auto">
+                  <span>Đặt tour ngay</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </Link>
+              <p className="text-sm text-gray-500 mt-2">
+                Giá từ <span className="font-semibold text-teal-600">{tour.price}</span> / người
+              </p>
             </div>
           </div>
         </div>
