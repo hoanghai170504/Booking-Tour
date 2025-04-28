@@ -53,6 +53,8 @@ export const logoutAsync = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logoutApi();
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       return null;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Đăng xuất thất bại');
@@ -105,6 +107,9 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      .addCase(logoutAsync.pending, (state) => {
+        state.loading = true;
+      })
       // Xử lý logout
       .addCase(logoutAsync.fulfilled, (state) => {
         state.isAuthenticated = false;
@@ -112,6 +117,10 @@ const authSlice = createSlice({
         state.token = null;
         state.loading = false;
         state.error = null;
+      })
+      .addCase(logoutAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });

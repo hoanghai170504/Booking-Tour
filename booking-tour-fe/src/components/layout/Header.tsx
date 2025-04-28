@@ -15,19 +15,14 @@ export default function Header() {
   const isAuthenticated = useAppSelector((state: RootState) => state.auth.isAuthenticated);
   const dispatch = useAppDispatch();
   const router = useRouter();
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLogout = async () => {
     try {
-      const result = await dispatch(logoutAsync());
-      if (logoutAsync.fulfilled.match(result)) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        router.push('/login');
-      }
+      await dispatch(logoutAsync()).unwrap();
+      router.push('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }

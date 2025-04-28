@@ -50,12 +50,12 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <div className="w-96 h-96 bg-teal-100 rounded-full absolute -top-10 -left-10 animate-pulse-slow"></div>
-            <div className="relative z-10 w-[400px] h-[400px] rounded-full overflow-hidden">
+            <div className="relative z-10 w-[500px] h-[500px] rounded-full overflow-hidden">
               <Image
                 src="/images/Home/herobackground.jpg"
                 alt="Vivu Xanh Mascot"
-                width={400}
-                height={400}
+                width={500}
+                height={500}
                 className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
               />
             </div>
@@ -231,7 +231,7 @@ export default function Home() {
       </section>
 
       {/* Đánh giá từ khách hàng */}
-      <section className="py-20 bg-gradient-to-r from-teal-50 to-blue-50">
+      {/* <section className="py-20 bg-gradient-to-r from-teal-50 to-blue-50">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-16 text-center text-gray-800 relative">
             <span className="relative z-10 after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-teal-400 after:rounded-full">Trải nghiệm khách hàng</span>
@@ -262,6 +262,54 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section> */}
+
+      <section className="py-20 bg-gradient-to-r from-teal-50 to-blue-50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-16 text-center text-gray-800 relative">
+            <span className="relative z-10 after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-teal-400 after:rounded-full">Bài viết nổi bật</span>
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sampleBlogs.slice(0, 3).map((blog) => (
+              <div key={blog.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src={blog.image}
+                    alt={blog.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-300 hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <h3 className="absolute bottom-4 left-4 text-xl font-bold text-white">{blog.title}</h3>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 line-clamp-3">{blog.content}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-500">{new Date(blog.createdAt).toLocaleDateString('vi-VN')}</span>
+                    <Link 
+                      href={`/blogs/${blog.id}`} 
+                      className="inline-flex items-center text-teal-500 hover:text-teal-600 font-medium group"
+                    >
+                      Xem thêm 
+                      <span className="ml-2 transform transition-transform group-hover:translate-x-2">→</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="flex justify-center mt-12">
+            <Link 
+              href="/blogs" 
+              className="bg-teal-500 text-white px-8 py-3 rounded-full hover:bg-teal-600 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              Xem tất cả bài viết
+            </Link>
           </div>
         </div>
       </section>
@@ -391,3 +439,31 @@ const testimonials = [
     avatar: '/images/avatar-3.jpg',
   },
 ];
+
+const sampleBlogs = [
+  {
+    id: 1,
+    title: 'Tour Đà Lạt 3N2Đ',
+    content: 'Đà Lạt là thành phố ngàn hoa, nơi có khí hậu mát mẻ và thời tiết ôn hòa. Đây là điểm đến lý tưởng cho những ai muốn tìm kiếm sự thoải mái và thư giãn.',
+    image: '/images/Home/Place/DALAT.jpg',
+    createdAt: '2024-03-15',
+    updatedAt: '2024-03-15',
+  },
+  {
+    id: 2,
+    title: 'Tour Phú Quốc 4N3Đ',
+    content: 'Phú Quốc là đảo ngọc Việt Nam, nổi tiếng với những bãi biển trải dài, rừng nguyên sinh và nước mắm truyền thống. Đây là điểm đến lý tưởng cho những ai muốn tìm kiếm sự thư giãn và khám phá vẻ đẹp tự nhiên.',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    createdAt: '2024-03-14',
+    updatedAt: '2024-03-14',
+  },
+  {
+    id: 3,
+    title: 'Tour Hạ Long 2N1Đ',
+    content: 'Hạ Long là vịnh di sản thế giới, nổi tiếng với những đảo đá vôi hình dạng độc đáo. Đây là điểm đến lý tưởng cho những ai muốn tìm kiếm sự khám phá và thư giãn.',
+    image: '/images/Home/Place/HALONG.jpg',
+    createdAt: '2024-03-13',
+    updatedAt: '2024-03-13',
+  },
+];
+
