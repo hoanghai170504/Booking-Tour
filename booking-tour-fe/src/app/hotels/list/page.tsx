@@ -21,6 +21,9 @@ export default function HotelListPage() {
     'Lễ tân 24h': false,
     'Phòng có bồn tắm': false
   });
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   
   const [filteredHotels, setFilteredHotels] = useState(hotels);
 
@@ -119,9 +122,23 @@ export default function HotelListPage() {
         // Giữ nguyên thứ tự
         break;
     }
+
+    // Tính tổng số trang
+    setTotalPages(Math.ceil(results.length / itemsPerPage));
     
-    setFilteredHotels(results);
-  }, [searchTerm, location, priceRange, sortOption, starFilters, amenityFilters]);
+    // Phân trang
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedResults = results.slice(startIndex, endIndex);
+    
+    setFilteredHotels(paginatedResults);
+  }, [searchTerm, location, priceRange, sortOption, starFilters, amenityFilters, page, itemsPerPage]);
+
+  // Thêm hàm xử lý chuyển trang
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -151,7 +168,8 @@ export default function HotelListPage() {
               onChange={(e) => setLocation(e.target.value)}
             >
               <option>Tất cả địa điểm</option>
-              <option>Hạ Long</option>
+              <option>Đà Lạt</option>
+              <option>Hạ Long</option>    
               <option>Đà Nẵng</option>
               <option>Phú Quốc</option>
             </select>
@@ -307,49 +325,94 @@ export default function HotelListPage() {
         {/* Results */}
         <div className="md:col-span-3 space-y-6">
           {filteredHotels.length > 0 ? (
-            filteredHotels.map((hotel) => (
-              <div key={hotel.id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex flex-col md:flex-row">
-                  <div className="relative w-full md:w-72 h-48">
-                    <Image
-                      src={hotel.image}
-                      alt={hotel.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute top-3 left-3 bg-yellow-400 text-white px-2 py-1 rounded text-sm font-bold">
-                      {hotel.stars} ⭐
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1 p-6">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-xl font-bubblegum mb-2">{hotel.name}</h3>
-                        <p className="text-gray-500 font-quicksand mb-4">{hotel.location}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {hotel.amenities.map((amenity, index) => (
-                            <span key={index} className="px-2 py-1 bg-gray-100 rounded-full text-sm font-quicksand">
-                              {amenity}
-                            </span>
-                          ))}
-                        </div>
+            <>
+              {filteredHotels.map((hotel) => (
+                <div key={hotel.id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="relative w-full md:w-72 h-48">
+                      <Image
+                        src={hotel.image}
+                        alt={hotel.name}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute top-3 left-3 bg-yellow-400 text-white px-2 py-1 rounded text-sm font-bold">
+                        {hotel.stars} ⭐
                       </div>
-                      <div className="text-right">
-                        <p className="text-gray-400 line-through font-quicksand">{hotel.oldPrice}</p>
-                        <p className="text-2xl font-bubblegum text-teal-600">{hotel.price}</p>
-                        <p className="text-gray-500 text-sm font-quicksand">/ phòng / đêm</p>
-                        <Link href={`/hotels/${hotel.id}`}>
-                        <button className="mt-4 bg-teal-400 text-white px-6 py-2 rounded-lg hover:bg-teal-500 transition-colors font-bubblegum">
-                          Đặt ngay
-                        </button>
-                        </Link>
+                    </div>
+                    
+                    <div className="flex-1 p-6">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-xl font-bubblegum mb-2">{hotel.name}</h3>
+                          <p className="text-gray-500 font-quicksand mb-4">{hotel.location}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {hotel.amenities.map((amenity, index) => (
+                              <span key={index} className="px-2 py-1 bg-gray-100 rounded-full text-sm font-quicksand">
+                                {amenity}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-gray-400 line-through font-quicksand">{hotel.oldPrice}</p>
+                          <p className="text-2xl font-bubblegum text-teal-600">{hotel.price}</p>
+                          <p className="text-gray-500 text-sm font-quicksand">/ phòng / đêm</p>
+                          <Link href={`/hotels/${hotel.id}`}>
+                          <button className="mt-4 bg-teal-400 text-white px-6 py-2 rounded-lg hover:bg-teal-500 transition-colors font-bubblegum">
+                            Đặt ngay
+                          </button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))}
+              
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-8">
+                  <button
+                    onClick={() => handlePageChange(page - 1)}
+                    disabled={page === 1}
+                    className={`px-4 py-2 rounded-lg ${
+                      page === 1
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-teal-50 text-teal-500 hover:bg-teal-100'
+                    }`}
+                  >
+                    ←
+                  </button>
+                  
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                        page === pageNum
+                          ? 'bg-teal-500 text-white'
+                          : 'bg-teal-50 text-teal-500 hover:bg-teal-100'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  ))}
+                  
+                  <button
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={page === totalPages}
+                    className={`px-4 py-2 rounded-lg ${
+                      page === totalPages
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-teal-50 text-teal-500 hover:bg-teal-100'
+                    }`}
+                  >
+                    →
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-10">
               <p className="text-xl font-bubblegum text-gray-500">Không tìm thấy khách sạn phù hợp</p>
@@ -395,5 +458,170 @@ const hotels = [
     image: '/images/Home/Place/HALONG.jpg',
     amenities: ['Bể bơi ngoài trời', 'Wifi miễn phí', 'Lễ tân 24h', 'Nhà hàng'],
     rooms: 354
+  },
+  {
+    id: 4,
+    name: 'Sofitel Legend Đà Lạt',
+    location: 'Đà Lạt',
+    stars: 5,
+    price: '1,850,000đ',
+    oldPrice: '2,000,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 326
+  },
+  {
+    id: 5,
+    name: 'Utopia Resort Đà Lạt',
+    location: 'Đà Lạt',
+    stars: 5,
+    price: '1,550,000đ',
+    oldPrice: '1,850,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 326
+  },
+  {
+    id: 6,
+    name: 'Banyan Tree Phú Quốc',
+    location: 'Phú Quốc',
+    stars: 5,
+    price: '1,550,000đ',
+    oldPrice: '1,850,000đ',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    amenities: ['Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 326
+  },
+  {
+    id: 7,
+    name: 'Vinpearl Resort & Spa Hạ Long',
+    location: 'Hạ Long',
+    stars: 5,
+    price: '2,100,000đ',
+    oldPrice: '2,500,000đ',
+    image: '/images/Home/Place/HALONG.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 384
+  },
+  {
+    id: 8,
+    name: 'Mường Thanh Luxury Đà Lạt',
+    location: 'Đà Lạt',
+    stars: 5,
+    price: '1,450,000đ',
+    oldPrice: '1,700,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng', 'Bể bơi ngoài trời'],
+    rooms: 290
+  },
+  {
+    id: 9,
+    name: 'InterContinental Phú Quốc Long Beach Resort',
+    location: 'Phú Quốc',
+    stars: 5,
+    price: '3,200,000đ',
+    oldPrice: '3,800,000đ',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 459
+  },
+  {
+    id: 10,
+    name: 'FLC Grand Hotel Hạ Long',
+    location: 'Hạ Long',
+    stars: 5,
+    price: '1,800,000đ',
+    oldPrice: '2,100,000đ',
+    image: '/images/Home/Place/HALONG.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 649
+  },
+  {
+    id: 11,
+    name: 'Ana Mandara Villas Dalat Resort & Spa',
+    location: 'Đà Lạt',
+    stars: 5,
+    price: '2,300,000đ',
+    oldPrice: '2,700,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng', 'Bể bơi ngoài trời'],
+    rooms: 70
+  },
+  {
+    id: 12,
+    name: 'JW Marriott Phu Quoc Emerald Bay Resort & Spa',
+    location: 'Phú Quốc',
+    stars: 5,
+    price: '4,500,000đ',
+    oldPrice: '5,200,000đ',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 244
+  },
+  {
+    id: 13,
+    name: 'Royal Lotus Resort & Villas Hạ Long',
+    location: 'Hạ Long',
+    stars: 4,
+    price: '1,200,000đ',
+    oldPrice: '1,400,000đ',
+    image: '/images/Home/Place/HALONG.jpg',
+    amenities: ['Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng', 'Bể bơi ngoài trời'],
+    rooms: 180
+  },
+  {
+    id: 14,
+    name: 'Terracotta Hotel & Resort Đà Lạt',
+    location: 'Đà Lạt',
+    stars: 4,
+    price: '1,350,000đ',
+    oldPrice: '1,600,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 240
+  },
+  {
+    id: 15,
+    name: 'Fusion Resort Phú Quốc',
+    location: 'Phú Quốc',
+    stars: 5,
+    price: '3,800,000đ',
+    oldPrice: '4,500,000đ',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 97
+  },
+  {
+    id: 16,
+    name: 'Novotel Ha Long Bay',
+    location: 'Hạ Long',
+    stars: 4,
+    price: '1,400,000đ',
+    oldPrice: '1,650,000đ',
+    image: '/images/Home/Place/HALONG.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 225
+  },
+  {
+    id: 17,
+    name: 'Dalat Palace Heritage Hotel',
+    location: 'Đà Lạt',
+    stars: 5,
+    price: '2,000,000đ',
+    oldPrice: '2,300,000đ',
+    image: '/images/Home/Place/DALAT.jpg',
+    amenities: ['Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 43
+  },
+  {
+    id: 18,
+    name: 'Salinda Resort Phu Quoc Island',
+    location: 'Phú Quốc',
+    stars: 5,
+    price: '2,700,000đ',
+    oldPrice: '3,100,000đ',
+    image: '/images/Home/Place/PHUQUOC.jpg',
+    amenities: ['Bể bơi ngoài trời', 'Phòng có bồn tắm', 'Lễ tân 24h', 'Wifi miễn phí', 'Nhà hàng'],
+    rooms: 121
   }
 ]; 
