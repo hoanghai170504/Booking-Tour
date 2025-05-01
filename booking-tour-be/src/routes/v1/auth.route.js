@@ -61,4 +61,62 @@ router.post('/register', controller.registerController
     */
 );
 
+router.post('/forgot-password', controller.forgotPassword
+    /* 
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Forgot password'
+    #swagger.description = 'Send reset password link to email'
+    #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        email: {
+                            type: 'string',
+                            example: 'user@example.com'
+                        }
+                    },
+                    required: ['email']
+                }
+            }
+        }
+    }
+    */
+);
+
+router.post('/reset-password', controller.resetPassword
+    /* 
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Reset password'
+    #swagger.description = 'Reset password with token'
+    #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        resetToken: {
+                            type: 'string',
+                            example: 'reset-token-here'
+                        },
+                        newPassword: {
+                            type: 'string',
+                            example: 'newpassword123'
+                        },
+                        confirmPassword: {
+                            type: 'string',
+                            example: 'newpassword123'
+                        }
+                    },
+                    required: ['resetToken', 'newPassword', 'confirmPassword']
+                }
+            }
+        }
+    }
+    */
+);
+
 module.exports = router;

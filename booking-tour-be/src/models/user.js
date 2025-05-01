@@ -45,6 +45,26 @@ module.exports = (sequelize, DataTypes) => {
                     }
                 }
             },
+            reset_token: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            reset_token_expires: {
+                type: DataTypes.DATE,
+                allowNull: true
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            avatar: {
+                type: DataTypes.STRING,
+                allowNull: true
+            }
         },
         {
             sequelize,

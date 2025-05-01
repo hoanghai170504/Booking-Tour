@@ -82,3 +82,87 @@ export const registerService = ({ email, password }) =>
             reject(error);
         }
     });
+
+export const forgotPasswordService = (email) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const user = await db.User.findOne({
+                where: { email },
+                raw: true
+            });
+
+            if (!user) {
+                resolve({
+                    err: 1,
+                    message: "Email not found"
+                });
+                return;
+            }
+
+            // Tạo reset token
+            const resetToken = jwt.sign(
+                { user_id: user.user_id },
+                process.env.JWT_SECRET,
+                { expiresIn: '15m' } // Token hết hạn sau 15 phút
+            );
+
+            // Lưu reset token và thời gian hết hạn vào database
+            await db.User.update(
+                {
+                    reset_token: resetToken,
+                    reset_token_expires: new Date(Date.now() + 15 * 60 * 1000) // 15 phút
+                },
+                { where: { user_id: user.user_id } }
+            );
+
+            resolve({
+                err: 0,
+                message: "Reset password link has been sent to your email",
+                resetToken
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const resetPasswordService = ({ resetToken, newPassword }) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            // Verify token
+            const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
+
+            // Tìm user với token và kiểm tra thời gian hết hạn
+            const user = await db.User.findOne({
+                where: {
+                    user_id: decoded.user_id,
+                    reset_token: resetToken,
+                    reset_token_expires: { [db.Sequelize.Op.gt]: new Date() }
+                }
+            });
+
+            if (!user) {
+                resolve({
+                    err: 1,
+                    message: "Invalid or expired reset token"
+                });
+                return;
+            }
+
+            // Hash password mới
+            const hashedPassword = hashPassword.hashPassword(newPassword);
+
+            // Cập nhật password và xóa reset token
+            await user.update({
+                password: hashedPassword,
+                reset_token: null,
+                reset_token_expires: null
+            });
+
+            resolve({
+                err: 0,
+                message: "Password has been reset successfully"
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });

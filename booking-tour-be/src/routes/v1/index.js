@@ -10,6 +10,18 @@ function initWebRoutes(app) {
         // #swagger.tags = ['Blogs']
     );
 
+    app.use('/api/v1/tours', require('./tours.route.js')
+        // #swagger.tags = ['Tours']
+    );
+
+    app.use('/api/v1/hotels', require('./hotels.route.js')
+        // #swagger.tags = ['Hotels']
+    );
+
+    app.use('/api/v1/user', require('./user.route.js')
+        // #swagger.tags = ['User']
+    );
+
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(require('../../config/swagger-output.json')));
     
     app.use(notFound);
